@@ -36,9 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
       }
       if (mounted) Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: $e")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error: $e")));
     } finally {
       setState(() => _loading = false);
     }
@@ -49,9 +49,20 @@ class _LoginScreenState extends State<LoginScreen> {
       await _auth.signInWithGoogle();
       if (mounted) Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Google Sign-In failed: $e")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Google Sign-In failed: $e")));
+    }
+  }
+
+  Future<void> _googleSignUp() async {
+    try {
+      await _auth.signUpWithGoogle();
+      if (mounted) Navigator.pushReplacementNamed(context, '/home');
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Google Sign-Up failed: $e")));
     }
   }
 
@@ -76,20 +87,24 @@ class _LoginScreenState extends State<LoginScreen> {
             _loading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: _submit,
-                    child: Text(_isLogin ? "Login" : "Register"),
-                  ),
+                  onPressed: _submit,
+                  child: Text(_isLogin ? "Login" : "Register"),
+                ),
             TextButton(
               onPressed: _toggleMode,
-              child: Text(_isLogin
-                  ? "Create an account"
-                  : "Already have an account? Login"),
+              child: Text(
+                _isLogin
+                    ? "Create an account"
+                    : "Already have an account? Login",
+              ),
             ),
             const Divider(),
             ElevatedButton.icon(
-              onPressed: _googleSignIn,
+              onPressed: _isLogin ? _googleSignIn : _googleSignUp,
               icon: const Icon(Icons.login),
-              label: const Text("Sign in with Google"),
+              label: Text(
+                _isLogin ? "Sign in with Google" : "Sign up with Google",
+              ),
             ),
           ],
         ),

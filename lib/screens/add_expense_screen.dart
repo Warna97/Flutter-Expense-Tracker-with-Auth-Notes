@@ -16,7 +16,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   void _saveExpense() {
     if (_titleController.text.isEmpty ||
         _amountController.text.isEmpty ||
-        _selectedDate == null) return;
+        _selectedDate == null) {
+      return;
+    }
 
     final expense = Expense(
       title: _titleController.text,
@@ -59,9 +61,11 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             Row(
               children: [
                 Expanded(
-                  child: Text(_selectedDate == null
-                      ? "No Date Chosen"
-                      : "Picked: ${_selectedDate!.toLocal().toString().split(' ')[0]}"),
+                  child: Text(
+                    _selectedDate == null
+                        ? "No Date Chosen"
+                        : "Picked: ${_selectedDate!.toLocal().toString().split(' ')[0]}",
+                  ),
                 ),
                 TextButton(
                   onPressed: _pickDate,
@@ -73,7 +77,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             ElevatedButton(
               onPressed: _saveExpense,
               child: const Text("Save Expense"),
-            )
+            ),
           ],
         ),
       ),

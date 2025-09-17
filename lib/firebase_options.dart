@@ -54,6 +54,8 @@ class DefaultFirebaseOptions {
     authDomain: 'expense-tracker-f7d15.firebaseapp.com',
     storageBucket: 'expense-tracker-f7d15.firebasestorage.app',
     measurementId: 'G-ZMJRE6PJ0Y',
+     static const String webClientId =
+      '618860934474-so5bft1dek3cfguvhctmhlq08njd5lpf.apps.googleusercontent.com';
   );
 
   static const FirebaseOptions android = FirebaseOptions(

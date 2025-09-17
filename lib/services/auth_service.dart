@@ -24,7 +24,7 @@ class AuthService {
 
   // Google Sign In
   Future<User?> signInWithGoogle() async {
-    final googleUser = await GoogleSignIn().signIn();
+    final googleUser = await GoogleSignIn.standard().signIn();
     if (googleUser == null) return null;
 
     final googleAuth = await googleUser.authentication;
@@ -37,10 +37,15 @@ class AuthService {
     return result.user;
   }
 
+  // Google Sign Up (same flow as sign in for Firebase Auth)
+  Future<User?> signUpWithGoogle() async {
+    return signInWithGoogle();
+  }
+
   // Sign Out
   Future<void> signOut() async {
     await _auth.signOut();
-    await GoogleSignIn().signOut();
+    await GoogleSignIn.standard().signOut();
   }
 
   // Current User
